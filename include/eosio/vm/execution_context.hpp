@@ -350,20 +350,6 @@ void meter_wasm_opcode( Host* host, const Op& op )
          }
       }
 
-      /**
-       * Set the number of ticks that will be allowed to pass before an exception is thrown.
-       */
-      void set_meter_ticks(int64_t ticks) {
-         _state.meter_ticks = ticks;
-      }
-
-      /**
-       * Get the current remaining number of ticks that will be allowed to pass before an exception is thrown.
-       */
-      int64_t get_meter_ticks()const {
-         return _state.meter_ticks;
-      }
-
       inline void call(uint32_t index) {
          // TODO validate index is valid
          if (index < _mod.get_imported_functions_size()) {
@@ -688,7 +674,6 @@ void meter_wasm_opcode( Host* host, const Op& op )
          uint32_t os_index         = 0;
          opcode*  pc               = nullptr;
          bool     exiting          = false;
-         int64_t  meter_ticks      = 0;
       };
 
       bounded_allocator _base_allocator = {

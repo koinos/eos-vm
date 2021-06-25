@@ -211,20 +211,6 @@ namespace eosio { namespace vm {
          return wasm;
       }
 
-      /**
-       * Set the number of ticks that will be allowed to pass before an exception is thrown.
-       */
-      inline void set_meter_ticks(int64_t ticks) {
-         _ctx.set_meter_ticks(ticks);
-      }
-
-      /**
-       * Get the current remaining number of ticks that will be allowed to pass before an exception is thrown.
-       */
-      inline int64_t get_meter_ticks()const {
-         return _ctx.get_meter_ticks();
-      }
-
     private:
       wasm_allocator*         _walloc = nullptr; // non owning pointer
       module                  _mod;
