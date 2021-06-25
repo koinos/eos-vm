@@ -511,12 +511,7 @@ namespace eosio { namespace vm {
       template< typename Op >
       inline void meter(const Op& op)
       {
-         int64_t cost = 1;          // TODO:  Load cost from a table instead of having it always be 1
-         _state.meter_ticks -= cost;
-         if( _state.meter_ticks < 0 )
-         {
-            throw tick_meter_exception{ "tick meter ran out of cycles" };
-         }
+         _state.host->meter< Op >(op);
       }
 
       inline void reset() {
