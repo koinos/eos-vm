@@ -508,11 +508,22 @@ namespace eosio { namespace vm {
          _state.exiting = true;
       }
 
-      template< typename Op >
+      // meter() needs overload for cases where host does / does not have a meter() method.
+      // see https://stackoverflow.com/questions/13786888/check-if-member-exists-using-enable-if
+
+      template< typename T >
+      struct _dummy { typedef int Type; };
+
+      template<
+                typename Op,
+                typename _dummy< decltype( _state.host->meter< Op >(Op()) ) >::type = 0
+              >
       inline void meter(const Op& op)
       {
          _state.host->meter< Op >(op);
       }
+
+      inline void meter(const Op& op) {}
 
       inline void reset() {
          base_type::reset();
