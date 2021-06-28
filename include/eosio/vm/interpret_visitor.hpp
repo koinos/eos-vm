@@ -223,7 +223,6 @@ template <typename ExecutionContext> struct interpret_visitor : base_visitor
 
    template <typename Op> inline void *pop_memop_addr(const Op &op)
    {
-      context.meter(op);
       const auto &ptr = context.pop_operand();
       return align_address((context.linear_memory() + op.offset + ptr.to_ui32()), op.flags_align);
    }
