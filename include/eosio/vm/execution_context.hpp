@@ -25,6 +25,10 @@
 
 namespace eosio { namespace vm {
 
+template< typename Host, typename Op >
+void meter_wasm_opcode( Host* host, const Op& op )
+{}
+
    template<typename Derived, typename Host>
    class execution_context_base {
     public:
@@ -492,6 +496,12 @@ namespace eosio { namespace vm {
          _error_code = err;
          _state.pc = &_halt;
          _state.exiting = true;
+      }
+
+      template< typename Op >
+      void meter( const Op& op )
+      {
+         meter_wasm_opcode< Host, Op >( _state.host, op );
       }
 
       inline void reset() {
